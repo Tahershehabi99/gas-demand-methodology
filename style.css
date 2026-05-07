@@ -32,16 +32,18 @@ header {
 .brand {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1.25rem;
 }
 
+.brand-text { flex: 1; min-width: 0; }
+
 .logo {
-  height: 60px;
+  height: 38px;
   width: auto;
   flex-shrink: 0;
+  align-self: center;
 }
-
-.brand-text { flex: 1; min-width: 0; }
 
 header h1 {
   font-size: 1.75rem;
@@ -368,8 +370,9 @@ footer {
 
 @media (max-width: 600px) {
   body { padding: 1rem; }
-  header h1 { font-size: 1.3rem; }
-  .logo { height: 44px; }
+  header h1 { font-size: 1.2rem; }
+  .logo { height: 28px; }
+  .brand { gap: 0.75rem; }
   section { padding: 1rem; }
   .period-buttons { flex-direction: column; }
   .period-btn { min-width: unset; }
