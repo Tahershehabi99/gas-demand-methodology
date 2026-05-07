@@ -39,7 +39,7 @@ header {
 .brand-text { flex: 1; min-width: 0; }
 
 .logo {
-  height: 114px;
+  height: 46px;
   width: auto;
   flex-shrink: 0;
   align-self: center;
@@ -371,7 +371,7 @@ footer {
 @media (max-width: 600px) {
   body { padding: 1rem; }
   header h1 { font-size: 1.2rem; }
-  .logo { height: 84px; }
+  .logo { height: 34px; }
   .brand { gap: 0.75rem; }
   section { padding: 1rem; }
   .period-buttons { flex-direction: column; }

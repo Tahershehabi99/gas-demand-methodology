@@ -440,11 +440,11 @@ const COUNTRIES = {
     group: "Austria depends on Eurostat for its monthly Total — there's no near-real-time daily total source. (Austria's own gas operator AGGM requires authentication credentials we are still arranging.)",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "Austria has no daily total source available to us yet. The ENTSOG balance for Austria is unreliable (~60% off vs Eurostat) due to large transit flows. So before Eurostat publishes, we have no Total figure for Austria." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Austria's annual industrial figure spread across months via European seasonal pattern. Current year uses carry-forward of the latest confirmed annual." },
-        res_com: { source: "Not available until total is known", text: "Without a Total, no leftover can be computed." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Austria has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Austria's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Austria's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Austria's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Austria's official monthly gas consumption from Eurostat." },
@@ -462,11 +462,11 @@ const COUNTRIES = {
     group: "Czech Republic depends on Eurostat for its monthly Total — the ENTSOG balance is unreliable (~140% off) and the Czech direct-consumer feed is empty.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No daily total source available — the Czech ENTSOG balance is unreliable and the operator-level feed is empty. Before Eurostat publishes, no Total figure for Czech Republic." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual industrial figure spread monthly via European seasonal pattern." },
-        res_com: { source: "Not available until total is known", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Czech Republic has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Czech Republic's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Czech Republic's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Czech Republic's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Czech Republic's official monthly gas consumption from Eurostat." },
@@ -484,11 +484,11 @@ const COUNTRIES = {
     group: "Denmark depends on Eurostat for its monthly Total — no near-real-time daily total source.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No daily total source. Before Eurostat publishes, no Total." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
-        res_com: { source: "Not available", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Denmark has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Denmark's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Denmark's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Denmark's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Denmark's official monthly figure from Eurostat." },
@@ -506,11 +506,11 @@ const COUNTRIES = {
     group: "Estonia depends on Eurostat for its monthly Total — no near-real-time daily total source.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No daily total source for Estonia." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
-        res_com: { source: "Not available", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Estonia has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Estonia's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Estonia's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Estonia's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Estonia's official monthly figure from Eurostat." },
@@ -528,11 +528,11 @@ const COUNTRIES = {
     group: "Finland depends on Eurostat for its monthly Total — no near-real-time daily total source.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No daily total source for Finland." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
-        res_com: { source: "Not available", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Finland has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Finland's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Finland's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Finland's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Finland's official monthly figure from Eurostat." },
@@ -550,11 +550,11 @@ const COUNTRIES = {
     group: "Croatia depends on Eurostat for its monthly Total — no near-real-time daily total source.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No daily total source for Croatia." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
-        res_com: { source: "Not available", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Croatia has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Croatia's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Croatia's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Croatia's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Croatia's official monthly figure from Eurostat." },
@@ -572,11 +572,11 @@ const COUNTRIES = {
     group: "Ireland depends on Eurostat for its monthly Total — no near-real-time daily total source.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No daily total source for Ireland." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
-        res_com: { source: "Not available", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Ireland has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Ireland's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Ireland's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Ireland's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Ireland's official monthly figure from Eurostat." },
@@ -594,11 +594,11 @@ const COUNTRIES = {
     group: "Latvia depends on Eurostat for its monthly Total — no near-real-time daily total source.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No daily total source for Latvia." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
-        res_com: { source: "Not available", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Latvia has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Latvia's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Latvia's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Latvia's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Latvia's official monthly figure from Eurostat." },
@@ -616,11 +616,11 @@ const COUNTRIES = {
     group: "Sweden has only a small gas system (no significant transmission network) and depends on Eurostat for monthly figures.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No daily total source for Sweden — its small gas system isn't reflected in ENTSOG." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency. Sweden burns very little gas for electricity." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
-        res_com: { source: "Not available", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Sweden has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Sweden's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Sweden's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Sweden's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Sweden's official monthly figure from Eurostat." },
@@ -638,11 +638,11 @@ const COUNTRIES = {
     group: "Slovakia depends on Eurostat for its monthly Total — the ENTSOG balance is distorted by large transit flows.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "No reliable daily total source for Slovakia — ENTSOG balance is distorted by transit flows." },
-        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
-        res_com: { source: "Not available", text: "No total → no leftover." },
-        ih: { source: "Not available", text: "Same." }
+        total: { source: "Estimated: Power + Industry + Homes & Businesses (3-year same-month average)", text: "Slovakia has no daily total source. Before Eurostat (the EU statistical agency) publishes its monthly figure, we estimate Slovakia's Total by adding three pieces: (1) today's Power figure (from ENTSO-E), (2) the monthly Industry estimate (Eurostat's annual figure spread across months), and (3) a Homes & Businesses estimate calculated as the 3-year average of the same calendar month from prior years' Eurostat-confirmed data. Once Eurostat publishes the official figure (~2-month lag), this estimate is replaced." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations (from ENTSO-E), divided by Slovakia's annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Slovakia's annual industrial gas figure (from Eurostat) spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual figure." },
+        res_com: { source: "3-year same-month average estimate", text: "We average the Homes & Businesses figures from the same calendar month in the previous 3 years (taken from Eurostat-confirmed data). For example, an April 2026 estimate uses the average of April 2023, April 2024, and April 2025. Once Eurostat publishes the actual month, this estimate is replaced by the computed leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero in the estimated state — by construction, Total = Power + Industry + Homes & Businesses, so there is no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Slovakia's official monthly figure from Eurostat." },
