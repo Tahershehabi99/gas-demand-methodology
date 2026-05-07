@@ -86,15 +86,15 @@ const COUNTRIES = {
     group: "Italy and the Netherlands are the only EU countries where Eurostat publishes monthly Industry and Homes & Businesses data directly.",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "We add up daily Italian gas inflows (imports + production + storage withdrawals) and subtract outflows (exports + storage injections) to get Italy's daily total gas demand." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity generated from gas-fired power stations (from ENTSO-E), divided by Italy's annual power-station efficiency to convert it back into gas burned." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Italy. We calculate Italy's daily gas consumption by adding up everything flowing IN (imports across borders + domestic production + gas withdrawn from storage) and subtracting everything flowing OUT (exports + gas injected into storage). What's left is the gas consumed inside the country that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity generated from gas-fired power stations (from ENTSO-E), divided by Italy's annual power-station efficiency to convert it back into gas burned." },
         industry: { source: "ENTSOG point classifier", text: "We sum the daily flows at all ENTSOG network points tagged as 'industrial' for Italy. Available from November 2019 onwards." },
         res_com: { source: "ENTSOG point classifier", text: "We sum the daily flows at all ENTSOG points tagged as 'household' for Italy." },
         ih: { source: "Computed leftover", text: "Total − Power − Industry − Homes & Businesses. Captures refineries, transport, non-energy use, and statistical residuals." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (anchored)", text: "Eurostat publishes Italy's official monthly gas consumption. We use this figure directly and scale our daily ENTSOG totals so they sum to exactly this number." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat — ENTSO-E daily electricity divided by annual power-station efficiency. The efficiency is calibrated against Eurostat's annual gas-to-electricity figure (which includes industrial CHP)." },
+        total: { source: "Eurostat (the EU statistical agency) — anchored", text: "Eurostat publishes Italy's official monthly gas consumption. We use this figure directly and scale our daily ENTSOG totals so they sum to exactly this number." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity generated from gas-fired power stations (from ENTSO-E), divided by Italy's annual power-station efficiency to convert it back into gas burned." },
         industry: { source: "Eurostat monthly Industry", text: "Eurostat publishes Italy's monthly industrial gas consumption directly." },
         res_com: { source: "Eurostat monthly Other-Sectors", text: "Eurostat publishes Italy's monthly gas consumption for households + commercial services + agriculture directly." },
         ih: { source: "Computed leftover", text: "Whatever remains of the Eurostat total after subtracting Power + Industry + Homes & Businesses. For Italy this captures refineries, transport, and non-energy gas use." }
@@ -109,14 +109,14 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "ENTSOG direct-consumer flows (daily)", text: "We sum daily flows at ENTSOG points classified as direct industrial consumers, industrial-power consumers, and local distribution companies (LDCs). This gives a near-real-time daily total for the Netherlands." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity from gas-fired power stations, divided by Netherlands' annual power-station efficiency." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Netherlands' annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier", text: "We sum daily flows at ENTSOG points tagged as 'industrial' for the Netherlands. Available from November 2019 onwards." },
         res_com: { source: "ENTSOG point classifier", text: "We sum daily flows at ENTSOG points tagged as 'household' for the Netherlands." },
         ih: { source: "Computed leftover", text: "Total − Power − Industry − Homes & Businesses. For the Netherlands this is typically a few percent — non-energy gas use plus statistical residual." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (anchored)", text: "Eurostat publishes the Netherlands' official monthly gas consumption. We use this and scale the daily values to match." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before — ENTSO-E daily electricity divided by annual power-station efficiency." },
+        total: { source: "Eurostat (the EU statistical agency) — anchored", text: "Eurostat publishes the Netherlands' official monthly gas consumption. We use this and scale the daily values to match." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Netherlands' annual power-station efficiency." },
         industry: { source: "Eurostat monthly Industry", text: "Eurostat publishes the Netherlands' monthly industrial gas consumption directly." },
         res_com: { source: "Eurostat monthly Other-Sectors", text: "Eurostat publishes the Netherlands' monthly gas consumption for households + commercial services + agriculture directly." },
         ih: { source: "Computed leftover", text: "Whatever remains after subtracting the three sectors from the Eurostat total." }
@@ -133,14 +133,14 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Trading Hub Europe (daily)", text: "THE publishes Germany's daily total gas consumption directly." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity from gas-fired power stations, divided by Germany's annual power-station efficiency. The efficiency is calibrated against Eurostat's annual figure for total gas-to-electricity, which includes industrial CHP plants that ENTSO-E doesn't directly capture." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Germany's annual power-station efficiency. The efficiency is calibrated against Eurostat's annual figure for total gas-to-electricity, which includes industrial CHP plants that ENTSO-E doesn't directly capture." },
         industry: { source: "THE large-customer data − Power, scaled by rolling k", text: "THE publishes daily 'large customer' gas (called RLM — registered load metering). This includes industry + gas-fired power + large commercial all together. We subtract the gas-for-power figure (from ENTSO-E) to remove the power slice. Then we multiply by a rolling k factor (the average of the last 2 confirmed years) to align with Eurostat's industrial scope." },
         res_com: { source: "THE small-customer data (SLP, raw)", text: "THE publishes daily 'small customer' gas (called SLP — synthetic load profile). This is essentially households + small commercial, a clean proxy for our Homes & Businesses category." },
         ih: { source: "Computed leftover", text: "THE total − Power − Industry − Homes & Businesses. Captures off-network gas, refineries, transport, and statistical residuals." }
       },
       after_eurostat: {
         total: { source: "Trading Hub Europe (anchored to Eurostat)", text: "Once Eurostat publishes Germany's official monthly gas consumption, we scale the daily THE values so the monthly sum matches the Eurostat figure exactly." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat. The efficiency is calibrated annually." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Germany's annual power-station efficiency. The efficiency is calibrated against Eurostat's annual figure for total gas-to-electricity, which includes industrial CHP plants that ENTSO-E doesn't directly capture." },
         industry: { source: "THE large-customer − Power, scaled by k", text: "Same calculation as before-Eurostat: THE-RLM minus ENTSO-E gas-for-power, then multiplied by an annual k factor. For years where Eurostat has published the annual industrial figure, we use the exact k for that year so the annual sum ties to Eurostat exactly." },
         res_com: { source: "Computed leftover", text: "Once Eurostat publishes the monthly Total, we calculate Homes & Businesses as: Total − Power − Industry. This automatically captures whatever isn't in Power or Industry, including statistical residuals. (We discard the daily SLP measurement in favour of this leftover, on the user's instruction.)" },
         ih: { source: "Not emitted (zero)", text: "Always zero in confirmed months — Homes & Businesses absorbs all the leftover." }
@@ -161,15 +161,15 @@ const COUNTRIES = {
     group: "France has daily Industry and Homes & Businesses data from GRTGaz, the French gas network operator (covers both NaTran and Terega = full France).",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "Daily inflows (imports + production + storage withdrawals) minus outflows (exports + storage injections) for France." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity from gas-fired power stations, divided by France's annual power-station efficiency. Calibrated against Eurostat's annual gas-to-electricity figure (which includes autoproducer plants — large in France)." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for France. We calculate France's daily gas consumption by adding up everything flowing IN (imports across borders + domestic production + gas withdrawn from storage) and subtracting everything flowing OUT (exports + gas injected into storage). What's left is the gas consumed inside France that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by France's annual power-station efficiency. Calibrated against Eurostat's annual gas-to-electricity figure (which includes autoproducer plants — large in France)." },
         industry: { source: "GRTGaz daily × rolling k", text: "GRTGaz publishes France's daily industrial gas consumption directly. We multiply by a rolling k factor (average of the last 2 confirmed years) to align the annual scope with Eurostat." },
         res_com: { source: "GRTGaz daily (raw)", text: "GRTGaz publishes France's daily homes & businesses gas consumption directly. Used as-is in this state." },
         ih: { source: "Computed leftover", text: "Whatever remains after subtracting Power + Industry × rolling k + GRTGaz Homes & Businesses from the daily ENTSOG total. Captures non-energy gas use and statistical noise from the rolling-k approximation." }
       },
       after_eurostat: {
-        total: { source: "ENTSOG balance method, anchored to Eurostat", text: "Once Eurostat publishes France's monthly figure, we scale the daily ENTSOG values so the monthly sum matches Eurostat exactly." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
+        total: { source: "ENTSOG (balance method) — anchored to Eurostat", text: "Once Eurostat publishes France's monthly figure, we scale the daily ENTSOG values so the monthly sum matches Eurostat exactly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by France's annual power-station efficiency. Calibrated against Eurostat's annual gas-to-electricity figure (which includes autoproducer plants — large in France)." },
         industry: { source: "GRTGaz daily × k (actual or rolling)", text: "GRTGaz daily multiplied by a k factor. For years where Eurostat has published the annual industrial figure, we use the exact k so the annual sum ties exactly. For years before that (typically the most recent year), we use the rolling 2-year average." },
         res_com: { source: "Depends on whether annual Industry is confirmed", text: "If Eurostat has published the annual Industry figure for that year (i.e. k is 'actual_annual'), we compute Homes & Businesses as Total − Power − Industry (computed leftover). If Eurostat hasn't published the annual yet (k is 'rolling'), we keep using GRTGaz daily directly because the rolling Industry estimate isn't precise enough to trust the residual." },
         ih: { source: "Zero or balance — depends on annual Industry status", text: "Zero for years where annual Industry is confirmed (residual fully accounts for the leftover). Otherwise a small balance line absorbs the rolling-k approximation error." }
@@ -190,16 +190,16 @@ const COUNTRIES = {
     group: "Spain uses Enagás's monthly statistical bulletin (Boletín Estadístico) as its primary monthly source.",
     historical: {
       before_eurostat: {
-        total: { source: "Enagás monthly bulletin (when published)", text: "Enagás publishes Spain's monthly bulletin about 6 weeks after each month ends. Until that publication, we have no preliminary monthly total for Spain — Spain doesn't have a daily total source like ENTSOG-balance countries do." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity from gas-fired power stations, divided by Spain's annual power-station efficiency. The efficiency is calibrated against Eurostat's annual figure (which includes autoproducers and CHP that Enagás's own 'Sector Eléctrico' line misses)." },
+        total: { source: "Enagás monthly bulletin (when published)", text: "Enagás (the Spanish gas system operator) publishes a monthly statistical bulletin about 6 weeks after each month ends. Until that publication, we have no preliminary monthly total for Spain — Spain doesn't have a daily total source like ENTSOG-balance countries do." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Spain's annual power-station efficiency. The efficiency is calibrated against Eurostat's annual figure (which includes autoproducers and CHP that Enagás's own 'Sector Eléctrico' line misses)." },
         industry: { source: "Eurostat annual Industry, distributed monthly", text: "We take Eurostat's last published annual industrial figure for Spain and distribute it across the 12 months using the typical European industrial seasonal pattern (more in winter, less in summer). For the current year — where Eurostat hasn't published yet — we carry forward the most recent confirmed annual figure." },
         res_com: { source: "Not available until total is known", text: "Without a monthly Total figure, we can't compute the leftover for Homes & Businesses." },
         ih: { source: "Not available", text: "Same — no Total means no leftover." }
       },
       after_eurostat: {
         total: { source: "Eurostat (anchored, replaces Enagás)", text: "Once Eurostat publishes Spain's official monthly figure, we use that as the final Total." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual Industry, distributed monthly", text: "Same as before — Spain's annual industrial figure spread across months via the European seasonal profile." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Spain's annual power-station efficiency. The efficiency is calibrated against Eurostat's annual figure (which includes autoproducers and CHP that Enagás's own 'Sector Eléctrico' line misses)." },
+        industry: { source: "Eurostat annual Industry, distributed monthly", text: "We take Eurostat's last published annual industrial figure for Spain and distribute it across the 12 months using the typical European industrial seasonal pattern (more in winter, less in summer). For the current year — where Eurostat hasn't published yet — we carry forward the most recent confirmed annual figure." },
         res_com: { source: "Computed leftover", text: "Homes & Businesses = Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero — Homes & Businesses absorbs all leftover." }
       },
@@ -214,15 +214,15 @@ const COUNTRIES = {
     group: "Belgium has daily total via the ENTSOG balance method, plus Bruegel-style point classification for Industry and Homes & Businesses.",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "Daily inflows minus outflows for Belgium." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity from gas-fired power stations divided by Belgium's annual power-station efficiency." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Belgium. We calculate Belgium's daily gas consumption by adding up everything flowing IN (imports + domestic production + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Belgium that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations divided by Belgium's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at ENTSOG points tagged as 'industrial' for Belgium. For months before November 2019, we use Eurostat's annual industrial figure spread across months." },
         res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at ENTSOG points tagged as 'household' for Belgium." },
         ih: { source: "Computed leftover", text: "ENTSOG total − Power − Industry − Homes & Businesses. Absorbs any classification gaps." }
       },
       after_eurostat: {
         total: { source: "ENTSOG balance, anchored to Eurostat", text: "We scale daily ENTSOG values so the monthly sum matches Eurostat's official figure." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations divided by Belgium's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019), or Eurostat annual distributed", text: "Same source as before-Eurostat — the classifier doesn't change once Eurostat anchors the total." },
         res_com: { source: "Computed leftover", text: "Once Eurostat anchors the Total, we compute Homes & Businesses as Total − Power − Industry. This replaces the ENTSOG point classifier for Homes & Businesses (we keep the classifier for Industry only)." },
         ih: { source: "Not emitted (zero)", text: "Always zero in confirmed months — leftover absorbs everything not in Power and Industry." }
@@ -237,14 +237,14 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "Hungary has no near-real-time daily total source — we depend entirely on Eurostat's monthly publication. The ENTSOG balance method for Hungary is unreliable due to large transit flows that distort the calculation." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity from gas-fired power stations divided by Hungary's annual power-station efficiency." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations divided by Hungary's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at points tagged as 'industrial' for Hungary." },
         res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at points tagged as 'household' for Hungary." },
         ih: { source: "Not available", text: "Without a Total, no leftover can be computed." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Hungary's official monthly gas consumption from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Hungary's official monthly gas consumption from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations divided by Hungary's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier", text: "Sum of points tagged 'industrial'. For pre-November 2019, we use Eurostat's annual industrial figure spread across months." },
         res_com: { source: "Computed leftover", text: "Homes & Businesses = Total − Power − Industry." },
         ih: { source: "Not emitted (zero)", text: "Always zero." }
@@ -259,14 +259,14 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "Luxembourg has no near-real-time daily total source — we depend on Eurostat. The ENTSOG balance for Luxembourg is unreliable due to transit flows." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity divided by Luxembourg's annual power-station efficiency." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity divided by Luxembourg's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier", text: "Sum of points tagged 'industrial' for Luxembourg." },
         res_com: { source: "ENTSOG point classifier", text: "Sum of points tagged 'household' for Luxembourg." },
         ih: { source: "Not available", text: "Without a Total, no leftover." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Luxembourg's official monthly gas consumption from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Luxembourg's official monthly gas consumption from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity divided by Luxembourg's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (or Eurostat annual distributed for pre-2019)", text: "Sum of points tagged 'industrial'." },
         res_com: { source: "Computed leftover", text: "Homes & Businesses = Total − Power − Industry." },
         ih: { source: "Not emitted (zero)", text: "Always zero." }
@@ -280,15 +280,15 @@ const COUNTRIES = {
     group: "Portugal has daily total via ENTSOG balance method, plus point classifier for sectors.",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "Daily inflows minus outflows for Portugal." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Portugal. We calculate Portugal's daily gas consumption by adding up everything flowing IN (imports + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Portugal that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged 'industrial' for Portugal." },
         res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged 'household' for Portugal." },
         ih: { source: "Computed leftover", text: "Total − Power − Industry − Homes & Businesses." }
       },
       after_eurostat: {
         total: { source: "ENTSOG balance, anchored to Eurostat", text: "Daily ENTSOG values scaled so monthly sum matches Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (or Eurostat annual distributed for pre-2019)", text: "Sum of points tagged 'industrial'." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted (zero)", text: "Always zero." }
@@ -302,15 +302,15 @@ const COUNTRIES = {
     group: "Romania has daily total via ENTSOG balance method, plus point classifier for sectors.",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "Daily inflows minus outflows for Romania." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Romania. We calculate Romania's daily gas consumption by adding up everything flowing IN (imports + domestic production + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Romania that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged 'industrial' for Romania." },
         res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged 'household' for Romania." },
         ih: { source: "Computed leftover", text: "Total − Power − Industry − Homes & Businesses." }
       },
       after_eurostat: {
         total: { source: "ENTSOG balance, anchored to Eurostat", text: "Daily ENTSOG values scaled so monthly sum matches Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (or Eurostat annual distributed for pre-2019)", text: "Sum of points tagged 'industrial'." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted (zero)", text: "Always zero." }
@@ -326,16 +326,16 @@ const COUNTRIES = {
     group: "Bulgaria has daily total via the ENTSOG balance method but no monthly sector breakdown — Industry comes from Eurostat's annual figure.",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "Daily inflows minus outflows for Bulgaria." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Bulgaria's annual industrial figure from Eurostat, spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Bulgaria. We calculate Bulgaria's daily gas consumption by adding up everything flowing IN (imports + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Bulgaria that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Bulgaria's annual industrial figure from Eurostat, spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual." },
         res_com: { source: "Computed leftover (preliminary)", text: "Daily ENTSOG total minus Power minus Industry." },
         ih: { source: "Not emitted (zero)", text: "Always zero — Homes & Businesses absorbs all the leftover." }
       },
       after_eurostat: {
         total: { source: "ENTSOG balance, anchored to Eurostat", text: "Daily values scaled so monthly sum matches Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same as before — annual figure spread monthly via European seasonal pattern." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Bulgaria's annual industrial figure from Eurostat, spread across months using the typical European industrial seasonal pattern. For the current year, we carry forward the most recent confirmed annual." },
         res_com: { source: "Computed leftover (final)", text: "Eurostat-anchored Total − Power − Industry." },
         ih: { source: "Not emitted (zero)", text: "Always zero." }
       },
@@ -348,16 +348,16 @@ const COUNTRIES = {
     group: "Greece has daily total via the ENTSOG balance method but no monthly sector breakdown — Industry comes from Eurostat's annual figure.",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "Daily inflows minus outflows for Greece." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Greece's annual industrial figure spread across months via the European seasonal pattern. Current year uses carry-forward of the latest confirmed annual." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Greece. We calculate Greece's daily gas consumption by adding up everything flowing IN (imports + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Greece that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Greece's annual industrial figure spread across months via the European seasonal pattern. Current year uses carry-forward of the latest confirmed annual." },
         res_com: { source: "Computed leftover (preliminary)", text: "ENTSOG total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
       after_eurostat: {
         total: { source: "ENTSOG balance, anchored to Eurostat", text: "Daily values scaled to match Eurostat monthly." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same — annual spread via seasonal pattern." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same — annual spread via seasonal pattern." },
         res_com: { source: "Computed leftover (final)", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -370,16 +370,16 @@ const COUNTRIES = {
     group: "Lithuania has daily total via the ENTSOG balance method but no monthly sector breakdown — Industry comes from Eurostat's annual figure.",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "Daily inflows minus outflows for Lithuania." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual industrial figure spread monthly via European seasonal pattern." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Lithuania. We calculate Lithuania's daily gas consumption by adding up everything flowing IN (imports + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Lithuania that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual industrial figure spread monthly via European seasonal pattern." },
         res_com: { source: "Computed leftover (preliminary)", text: "ENTSOG total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
       after_eurostat: {
         total: { source: "ENTSOG balance, anchored to Eurostat", text: "Daily values scaled to match Eurostat monthly." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same as before-Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual industrial figure spread monthly via European seasonal pattern." },
         res_com: { source: "Computed leftover (final)", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -392,16 +392,16 @@ const COUNTRIES = {
     group: "Slovenia has daily total via the ENTSOG balance method but no monthly sector breakdown — Industry comes from Eurostat's annual figure.",
     historical: {
       before_eurostat: {
-        total: { source: "ENTSOG balance method (daily)", text: "Daily inflows minus outflows for Slovenia." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual industrial figure spread monthly via European seasonal pattern." },
+        total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Slovenia. We calculate Slovenia's daily gas consumption by adding up everything flowing IN (imports + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Slovenia that day." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual industrial figure spread monthly via European seasonal pattern." },
         res_com: { source: "Computed leftover (preliminary)", text: "ENTSOG total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
       after_eurostat: {
         total: { source: "ENTSOG balance, anchored to Eurostat", text: "Daily values scaled to match Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover (final)", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -417,15 +417,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "ENTSOG direct-consumer flows × 1.09", text: "ENTSOG publishes daily flows to direct consumers in Poland. These run about 9% below the official figure consistently, so we apply a flat 1.09 multiplier to align." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Poland's annual industrial figure spread monthly via European seasonal pattern." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Poland's annual industrial figure spread monthly via European seasonal pattern." },
         res_com: { source: "Computed leftover (preliminary)", text: "Daily total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
       after_eurostat: {
         total: { source: "ENTSOG direct-consumer × 1.09, anchored to Eurostat", text: "Daily values further scaled so monthly sum matches Eurostat exactly." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same as before-Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Poland's annual industrial figure spread monthly via European seasonal pattern." },
         res_com: { source: "Computed leftover (final)", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -441,15 +441,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "Austria has no daily total source available to us yet. The ENTSOG balance for Austria is unreliable (~60% off vs Eurostat) due to large transit flows. So before Eurostat publishes, we have no Total figure for Austria." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity from gas-fired power stations ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Austria's annual industrial figure spread across months via European seasonal pattern. Current year uses carry-forward of the latest confirmed annual." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Austria's annual industrial figure spread across months via European seasonal pattern. Current year uses carry-forward of the latest confirmed annual." },
         res_com: { source: "Not available until total is known", text: "Without a Total, no leftover can be computed." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Austria's official monthly gas consumption from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same as before-Eurostat." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Austria's official monthly gas consumption from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Austria's annual industrial figure spread across months via European seasonal pattern. Current year uses carry-forward of the latest confirmed annual." },
         res_com: { source: "Computed leftover", text: "Homes & Businesses = Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -463,15 +463,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No daily total source available — the Czech ENTSOG balance is unreliable and the operator-level feed is empty. Before Eurostat publishes, no Total figure for Czech Republic." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual industrial figure spread monthly via European seasonal pattern." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual industrial figure spread monthly via European seasonal pattern." },
         res_com: { source: "Not available until total is known", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Czech Republic's official monthly gas consumption from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same as before-Eurostat." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Czech Republic's official monthly gas consumption from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual industrial figure spread monthly via European seasonal pattern." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -485,15 +485,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No daily total source. Before Eurostat publishes, no Total." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual figure spread monthly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
         res_com: { source: "Not available", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Denmark's official monthly figure from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Denmark's official monthly figure from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -507,15 +507,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No daily total source for Estonia." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual figure spread monthly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
         res_com: { source: "Not available", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Estonia's official monthly figure from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Estonia's official monthly figure from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -529,15 +529,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No daily total source for Finland." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual figure spread monthly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
         res_com: { source: "Not available", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Finland's official monthly figure from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Finland's official monthly figure from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -551,15 +551,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No daily total source for Croatia." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual figure spread monthly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
         res_com: { source: "Not available", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Croatia's official monthly figure from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Croatia's official monthly figure from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -573,15 +573,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No daily total source for Ireland." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual figure spread monthly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
         res_com: { source: "Not available", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Ireland's official monthly figure from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Ireland's official monthly figure from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -595,15 +595,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No daily total source for Latvia." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual figure spread monthly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
         res_com: { source: "Not available", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Latvia's official monthly figure from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Latvia's official monthly figure from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -617,15 +617,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No daily total source for Sweden — its small gas system isn't reflected in ENTSOG." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual efficiency. Sweden burns very little gas for electricity." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual figure spread monthly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency. Sweden burns very little gas for electricity." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
         res_com: { source: "Not available", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Sweden's official monthly figure from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Sweden's official monthly figure from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency. Sweden burns very little gas for electricity." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -639,15 +639,15 @@ const COUNTRIES = {
     historical: {
       before_eurostat: {
         total: { source: "Not available", text: "No reliable daily total source for Slovakia — ENTSOG balance is distorted by transit flows." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Daily electricity ÷ annual efficiency." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Annual figure spread monthly." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Annual figure spread monthly." },
         res_com: { source: "Not available", text: "No total → no leftover." },
         ih: { source: "Not available", text: "Same." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Slovakia's official monthly figure from Eurostat." },
-        power: { source: "ENTSO-E ÷ efficiency", text: "Same as before-Eurostat." },
-        industry: { source: "Eurostat annual, distributed monthly", text: "Same." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Slovakia's official monthly figure from Eurostat." },
+        power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual efficiency." },
+        industry: { source: "Eurostat annual figure, spread across months", text: "Same." },
         res_com: { source: "Computed leftover", text: "Total − Power − Industry." },
         ih: { source: "Not emitted", text: "Always zero." }
       },
@@ -667,7 +667,7 @@ const COUNTRIES = {
         ih: { source: "Not available", text: "Without a Total, nothing to report." }
       },
       after_eurostat: {
-        total: { source: "Eurostat (monthly)", text: "Malta's official monthly gas consumption from Eurostat." },
+        total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Malta's official monthly gas consumption from Eurostat." },
         power: { source: "Not separated", text: "Same — not broken out." },
         industry: { source: "Not separated", text: "Negligible." },
         res_com: { source: "Not separated", text: "Negligible." },

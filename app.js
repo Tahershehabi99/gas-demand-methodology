@@ -17,23 +17,6 @@
   const substateButtons = document.querySelectorAll(".period-btn[data-substate]");
   const lastUpdated = document.getElementById("last-updated");
   const introSection = document.getElementById("intro");
-  const glossaryGrid = document.querySelector(".glossary-grid");
-
-  // ─── Populate glossary ─────────────────────────────────────────────
-  GLOSSARY.forEach(item => {
-    const el = document.createElement("div");
-    el.className = "glossary-item";
-    el.innerHTML = `
-      <span class="term">${escape(item.term)}</span>
-      <span class="toggle">+</span>
-      <div class="definition">${escape(item.definition)}</div>
-    `;
-    el.addEventListener("click", () => {
-      el.classList.toggle("expanded");
-      el.querySelector(".toggle").textContent = el.classList.contains("expanded") ? "−" : "+";
-    });
-    glossaryGrid.appendChild(el);
-  });
 
   // ─── Populate country dropdown ─────────────────────────────────────
   COUNTRY_ORDER.forEach(code => {
