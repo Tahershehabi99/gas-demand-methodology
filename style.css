@@ -18,7 +18,7 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 1.5rem;
 }
@@ -28,6 +28,20 @@ header {
   padding-bottom: 1rem;
   margin-bottom: 2rem;
 }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.brand-text { flex: 1; min-width: 0; }
 
 header h1 {
   font-size: 1.75rem;
@@ -110,6 +124,16 @@ section h2 {
   color: var(--color-muted);
 }
 
+.substep-intro {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-accent-light);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 4px;
+}
+
 #reset-btn {
   margin-top: 1.5rem;
   padding: 0.5rem 1rem;
@@ -127,14 +151,49 @@ section h2 {
   color: var(--color-text);
 }
 
+/* Glossary */
+.glossary { background: #f5f8fb; }
+.glossary-intro { font-size: 0.9rem; color: var(--color-muted); margin-bottom: 0.75rem; }
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.5rem;
+}
+
+.glossary-item {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.6rem 0.85rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.9rem;
+  transition: border-color 0.15s;
+}
+
+.glossary-item:hover { border-color: var(--color-accent); }
+.glossary-item.expanded { background: var(--color-accent-light); }
+.glossary-item .term { font-weight: 600; color: var(--color-accent); }
+.glossary-item .toggle { float: right; color: var(--color-muted); }
+.glossary-item .definition {
+  display: none;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--color-border);
+  color: var(--color-text);
+  line-height: 1.55;
+}
+.glossary-item.expanded .definition { display: block; }
+
 /* Detail content styling */
 .country-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
 }
 
 .country-header h2 {
@@ -149,6 +208,16 @@ section h2 {
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 500;
+}
+
+.country-tag.before-tag { background: #fff8e1; color: var(--color-warning); }
+.country-tag.after-tag { background: #e6f4ec; color: var(--color-success); }
+
+.group-line {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  margin-bottom: 1.25rem;
+  font-style: italic;
 }
 
 .sector-block {
@@ -230,6 +299,44 @@ section h2 {
 .example-table tr.total-row { font-weight: 600; background: white; }
 .example-table tr.total-row td { border-top: 2px solid var(--color-accent); }
 
+.k-factor-box {
+  background: #fffbe6;
+  border-left: 3px solid var(--color-warning);
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  margin-top: 1.5rem;
+}
+
+.k-factor-box h3 {
+  font-size: 1rem;
+  color: var(--color-warning);
+  margin-bottom: 0.5rem;
+}
+
+.k-factor-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+}
+
+.k-factor-table th, .k-factor-table td {
+  text-align: left;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid #f0e8b4;
+}
+
+.k-factor-table th {
+  font-weight: 600;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.k-factor-table td.value { text-align: right; font-variant-numeric: tabular-nums; }
+
+.k-factor-table .actual { color: var(--color-success); }
+.k-factor-table .rolling { color: var(--color-warning); }
+
 .note {
   background: #fff8e1;
   border-left: 3px solid var(--color-warning);
@@ -241,9 +348,7 @@ section h2 {
 
 .note strong { color: var(--color-warning); }
 
-#intro {
-  background: #f5f8fb;
-}
+#intro { background: #f5f8fb; }
 
 #intro ul {
   margin-left: 1.25rem;
@@ -263,8 +368,10 @@ footer {
 
 @media (max-width: 600px) {
   body { padding: 1rem; }
-  header h1 { font-size: 1.4rem; }
+  header h1 { font-size: 1.3rem; }
+  .logo { height: 44px; }
   section { padding: 1rem; }
   .period-buttons { flex-direction: column; }
   .period-btn { min-width: unset; }
+  .glossary-grid { grid-template-columns: 1fr; }
 }

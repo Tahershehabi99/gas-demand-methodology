@@ -9,11 +9,24 @@
 <body>
 
 <header>
-  <h1>EU Gas Demand — Methodology</h1>
-  <p class="subtitle">How we calculate monthly gas consumption for each country</p>
+  <div class="brand">
+    <img src="palissy-logo.png" alt="Palissy Advisors" class="logo">
+    <div class="brand-text">
+      <h1>EU Gas Demand — Methodology</h1>
+      <p class="subtitle">How we calculate monthly gas consumption for each country</p>
+    </div>
+  </div>
 </header>
 
 <main>
+
+  <section id="glossary" class="glossary">
+    <h2>Quick glossary</h2>
+    <p class="glossary-intro">
+      A few terms used throughout this page. Click any term to expand its explanation.
+    </p>
+    <div class="glossary-grid"></div>
+  </section>
 
   <section id="step-country">
     <h2>Step 1 — Pick a country</h2>
@@ -27,11 +40,26 @@
     <div class="period-buttons">
       <button class="period-btn" data-period="historical">
         <strong>Historical months</strong>
-        <span>Months that have already been confirmed by official sources (about 2 months ago and earlier)</span>
+        <span>Months that have been published or confirmed by official sources (typically about 2 months ago and earlier)</span>
       </button>
       <button class="period-btn" data-period="current">
         <strong>Current month (estimated)</strong>
         <span>The current month and very recent months — uses preliminary data with estimates filling in</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="step-substate" class="hidden">
+    <h2>Step 3 — Before or after Eurostat reports?</h2>
+    <p id="step-substate-intro" class="substep-intro"></p>
+    <div class="period-buttons">
+      <button class="period-btn" data-substate="before">
+        <strong>Before Eurostat reports</strong>
+        <span>Preliminary numbers — the official Eurostat figure is not yet available for this month</span>
+      </button>
+      <button class="period-btn" data-substate="after">
+        <strong>After Eurostat reports</strong>
+        <span>Final, confirmed numbers — the Eurostat figure has been published and used to lock the totals</span>
       </button>
     </div>
   </section>
@@ -54,15 +82,19 @@
     </ul>
     <p>
       The methodology differs by country because each country publishes different
-      data at different speeds. Pick a country above to see exactly where each
-      number comes from.
+      data at different speeds. The key reference point in every country is
+      <strong>Eurostat</strong> (or DESNZ for the UK) — the official statistical
+      agency that publishes monthly gas balances about 2 months after each
+      month ends. So for any given month there are typically two states:
+      <em>before Eurostat reports</em> (preliminary) and <em>after Eurostat
+      reports</em> (final). Pick a country above to see the details.
     </p>
   </section>
 
 </main>
 
 <footer>
-  <p>Generated from the AKAP Energy gas demand pipeline. Last updated: <span id="last-updated"></span></p>
+  <p>Generated from the Palissy Advisors gas demand pipeline. Last updated: <span id="last-updated"></span></p>
 </footer>
 
 <script src="data.js"></script>
