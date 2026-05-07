@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU Gas Demand — Methodology</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>EU Gas Demand — Methodology</h1>
+  <p class="subtitle">How we calculate monthly gas consumption for each country</p>
+</header>
+
+<main>
+
+  <section id="step-country">
+    <h2>Step 1 — Pick a country</h2>
+    <select id="country-select">
+      <option value="">— Select a country —</option>
+    </select>
+  </section>
+
+  <section id="step-period" class="hidden">
+    <h2>Step 2 — Which months do you want to look at?</h2>
+    <div class="period-buttons">
+      <button class="period-btn" data-period="historical">
+        <strong>Historical months</strong>
+        <span>Months that have already been confirmed by official sources (about 2 months ago and earlier)</span>
+      </button>
+      <button class="period-btn" data-period="current">
+        <strong>Current month (estimated)</strong>
+        <span>The current month and very recent months — uses preliminary data with estimates filling in</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="step-detail" class="hidden">
+    <div id="detail-content"></div>
+    <button id="reset-btn">← Start over</button>
+  </section>
+
+  <section id="intro">
+    <h2>About this site</h2>
+    <p>
+      For every country in the EU plus the UK, we calculate monthly gas demand
+      broken down into three sectors:
+    </p>
+    <ul>
+      <li><strong>Power</strong> — gas burned in power stations to generate electricity</li>
+      <li><strong>Industry</strong> — gas used by factories, refineries, chemicals, steel, etc.</li>
+      <li><strong>Homes &amp; Businesses</strong> — gas used for heating homes, offices, shops, restaurants, etc.</li>
+    </ul>
+    <p>
+      The methodology differs by country because each country publishes different
+      data at different speeds. Pick a country above to see exactly where each
+      number comes from.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>Generated from the AKAP Energy gas demand pipeline. Last updated: <span id="last-updated"></span></p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
