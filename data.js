@@ -187,14 +187,14 @@ const COUNTRIES = {
 
   "ES": {
     name: "Spain",
-    group: "Spain uses Enagás's monthly statistical bulletin (Boletín Estadístico) as its primary monthly source.",
+    group: "Spain uses Enagás's monthly statistical bulletin (Boletín Estadístico) as its primary monthly source. While we wait for Enagás or Eurostat to publish, we estimate Homes & Businesses from the 3-year same-month average and compute a preliminary Total.",
     historical: {
       before_eurostat: {
-        total: { source: "Enagás monthly bulletin (when published)", text: "Enagás (the Spanish gas system operator) publishes a monthly statistical bulletin about 6 weeks after each month ends. Until that publication, we have no preliminary monthly total for Spain — Spain doesn't have a daily total source like ENTSOG-balance countries do." },
+        total: { source: "Computed estimate = Power + Industry + 3-year same-month Homes & Businesses average", text: "Spain has no daily total source. Until Enagás publishes its monthly bulletin (about 6 weeks after each month ends) or Eurostat publishes the official figure (about 2 months after), we produce a preliminary Total by adding Power, Industry and an estimated Homes & Businesses figure. The estimate is the simple average of the same calendar month from the previous three years." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Spain's annual power-station efficiency. The efficiency is calibrated against Eurostat's annual figure (which includes autoproducers and CHP that Enagás's own 'Sector Eléctrico' line misses)." },
         industry: { source: "Eurostat annual Industry, distributed monthly", text: "We take Eurostat's last published annual industrial figure for Spain and distribute it across the 12 months using the typical European industrial seasonal pattern (more in winter, less in summer). For the current year — where Eurostat hasn't published yet — we carry forward the most recent confirmed annual figure." },
-        res_com: { source: "Not available until total is known", text: "Without a monthly Total figure, we can't compute the leftover for Homes & Businesses." },
-        ih: { source: "Not available", text: "Same — no Total means no leftover." }
+        res_com: { source: "3-year same-month average estimate", text: "We compute Homes & Businesses as the average of the same calendar month from the previous three years (e.g. April 2026 estimate = average of April 2023, April 2024, April 2025 figures). Once Enagás or Eurostat publishes the monthly Total, this estimate is replaced by the leftover (Total − Power − Industry)." },
+        ih: { source: "Not emitted (zero)", text: "Always zero — the estimated Total already equals Power + Industry + Homes & Businesses by construction." }
       },
       after_eurostat: {
         total: { source: "Eurostat (anchored, replaces Enagás)", text: "Once Eurostat publishes Spain's official monthly figure, we use that as the final Total." },
@@ -233,14 +233,14 @@ const COUNTRIES = {
 
   "HU": {
     name: "Hungary",
-    group: "Hungary has daily Industry and Homes & Businesses data via the Bruegel-style ENTSOG point classifier, but no daily total source.",
+    group: "Hungary has daily Industry and Homes & Businesses data via the Bruegel-style ENTSOG point classifier, plus daily Power from ENTSO-E. No daily total source, so the preliminary monthly Total is computed by summing the three known sectors.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "Hungary has no near-real-time daily total source — we depend entirely on Eurostat's monthly publication. The ENTSOG balance method for Hungary is unreliable due to large transit flows that distort the calculation." },
+        total: { source: "Computed estimate = Power + Industry + Homes & Businesses (sum of known sectors)", text: "Hungary has no near-real-time daily total source — the ENTSOG balance method is unreliable due to large transit flows that distort the calculation. While we wait for Eurostat to publish (about 2 months after month-end), we sum the three known sector values to produce a preliminary monthly Total. Once Eurostat publishes, the official figure replaces this estimate." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations divided by Hungary's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at points tagged as 'industrial' for Hungary." },
         res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at points tagged as 'household' for Hungary." },
-        ih: { source: "Not available", text: "Without a Total, no leftover can be computed." }
+        ih: { source: "Not emitted (zero)", text: "Always zero — the estimated Total already equals Power + Industry + Homes & Businesses by construction." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Hungary's official monthly gas consumption from Eurostat." },
@@ -255,14 +255,14 @@ const COUNTRIES = {
 
   "LU": {
     name: "Luxembourg",
-    group: "Luxembourg has Bruegel-style ENTSOG point classifier data for Industry and Homes & Businesses, but no daily total source.",
+    group: "Luxembourg has Bruegel-style ENTSOG point classifier data for Industry and Homes & Businesses, plus daily Power from ENTSO-E. No daily total source, so the preliminary monthly Total is computed by summing the three known sectors.",
     historical: {
       before_eurostat: {
-        total: { source: "Not available", text: "Luxembourg has no near-real-time daily total source — we depend on Eurostat. The ENTSOG balance for Luxembourg is unreliable due to transit flows." },
+        total: { source: "Computed estimate = Power + Industry + Homes & Businesses (sum of known sectors)", text: "Luxembourg has no near-real-time daily total source — the ENTSOG balance method is unreliable due to transit flows. While we wait for Eurostat to publish (about 2 months after month-end), we sum the three known sector values to produce a preliminary monthly Total. Once Eurostat publishes, the official figure replaces this estimate." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity divided by Luxembourg's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier", text: "Sum of points tagged 'industrial' for Luxembourg." },
         res_com: { source: "ENTSOG point classifier", text: "Sum of points tagged 'household' for Luxembourg." },
-        ih: { source: "Not available", text: "Without a Total, no leftover." }
+        ih: { source: "Not emitted (zero)", text: "Always zero — the estimated Total already equals Power + Industry + Homes & Businesses by construction." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — monthly figure", text: "Luxembourg's official monthly gas consumption from Eurostat." },
