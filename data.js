@@ -737,15 +737,31 @@ const COUNTRY_ORDER = Object.keys(COUNTRIES).sort((a, b) =>
   COUNTRIES[a].name.localeCompare(COUNTRIES[b].name)
 );
 
-// Current month methodology (placeholder until finalised)
+// Current month methodology (rolling — Power finalised; Industry/Res_Com pending)
 const CURRENT_MONTH_PLACEHOLDER_TEXT = `
-The methodology for the current month and very recent months (typically the last 1-2 months) is still being finalised.
+While we wait for the current month to close and Eurostat to publish (typically a 2-month lag), the model produces a forward estimate so the Excel always shows a complete current-month row alongside the running daily Actual.
 
-In general:
-• Power is always up-to-date (ENTSO-E publishes within a day)
-• Total demand uses the country's daily operator data if available (Trading Hub Europe for Germany, ENTSOG balance method for many others, National Gas for the UK, Enagás for Spain). Countries that depend on Eurostat (such as Austria, Czech Republic, the Nordics) have no current-month total until Eurostat publishes about 2 months later.
-• Industry uses the latest annual figure carried forward, or the daily operator data where available.
-• Homes & Businesses fills in via daily operator data or as a leftover once the total is known.
+POWER — growth-rate vs prior year same-period
 
-Detailed per-country current-month methodology will be added here once finalised.
+For every country, ENTSO-E (and National Gas for the UK) provide daily gas-to-power within about a day of the actual day. We:
+
+  1. Sum the daily Power values for the current month so far (month-to-date through day N).
+  2. Sum the same calendar days (1 through N) in the same month of the prior year.
+  3. Compute the growth rate: MTD this year ÷ MTD same period last year.
+  4. Multiply the prior year's full-month total by that growth rate to get the current-month estimate.
+
+Worked example (France, May 2026 estimate computed on 8 May 2026):
+  • MTD 1-8 May 2026 = 0.172 TWh
+  • MTD 1-8 May 2025 = 0.117 TWh
+  • Growth rate = 0.172 ÷ 0.117 = 1.473 (+47.3%)
+  • Prior year full month (May 2025) = 0.434 TWh
+  • Estimate = 0.434 × 1.473 = 0.639 TWh
+
+Caveat — early in the month: if the current-month data only goes through day 1-4 (insufficient sample for a stable growth rate), we simply carry forward the prior-year same-month total as the estimate. The growth-rate calculation kicks in from day 5 onward.
+
+If a country has no current-month daily data at all, we also carry forward the prior-year same-month total.
+
+INDUSTRY, HOMES & BUSINESSES, TOTAL
+
+Methodology for the other sectors in the current month is still being refined and will be documented here as it lands.
 `.trim();
