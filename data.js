@@ -42,7 +42,7 @@ const GLOSSARY = [
   },
   {
     term: "Trading Hub Europe (THE)",
-    definition: "Germany's gas market operator. Publishes daily total gas consumption plus a breakdown into 'large customers' (RLM — Registered Load Metering, includes industry + power + large commercial) and 'small customers' (SLP — Synthetic Load Profile, mostly households + small commerce)."
+    definition: "Germany's gas market operator. Publishes daily total gas consumption plus a breakdown into 'large customers' (RLM — Registered Load Metering, includes industry + power + large commercial) and 'small customers' (SLP — Synthetic Load Profile, mostly residential + small commerce — the ResCom sector)."
   },
   {
     term: "GRTGaz",
@@ -50,7 +50,7 @@ const GLOSSARY = [
   },
   {
     term: "ENTSOG point classifier",
-    definition: "A classification (originally developed by Bruegel) that tags each ENTSOG flow point by what type of customer it serves — industrial, household, power station, etc. By summing the points tagged 'industrial' or 'household', we get a daily breakdown for countries that have one. Available from November 2019 onwards for Belgium, Hungary, Italy, Luxembourg, Netherlands, Portugal, Romania."
+    definition: "A classification (originally developed by Bruegel) that tags each ENTSOG flow point by what type of customer it serves — industrial, ResCom, power station, etc. By summing the points tagged 'industrial' or 'ResCom', we get a daily breakdown for countries that have one. Available from November 2019 onwards for Belgium, Hungary, Italy, Luxembourg, Netherlands, Portugal, Romania."
   },
   {
     term: "Enagás",
@@ -89,14 +89,14 @@ const COUNTRIES = {
         total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Italy. We calculate Italy's daily gas consumption by adding up everything flowing IN (imports across borders + domestic production + gas withdrawn from storage) and subtracting everything flowing OUT (exports + gas injected into storage). What's left is the gas consumed inside the country that day." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity generated from gas-fired power stations (from ENTSO-E), divided by Italy's annual power-station efficiency to convert it back into gas burned." },
         industry: { source: "ENTSOG point classifier", text: "We sum the daily flows at all ENTSOG network points tagged as 'industrial' for Italy. Available from November 2019 onwards." },
-        res_com: { source: "ENTSOG point classifier", text: "We sum the daily flows at all ENTSOG points tagged as 'household' for Italy." },
+        res_com: { source: "ENTSOG point classifier", text: "We sum the daily flows at all ENTSOG points tagged as ResCom for Italy." },
         ih: { source: "Computed leftover", text: "Total − Power − Industry − Homes & Businesses. Captures refineries, transport, non-energy use, and statistical residuals." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — anchored", text: "Eurostat publishes Italy's official monthly gas consumption. We use this figure directly and scale our daily ENTSOG totals so they sum to exactly this number." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity generated from gas-fired power stations (from ENTSO-E), divided by Italy's annual power-station efficiency to convert it back into gas burned." },
         industry: { source: "Eurostat monthly Industry", text: "Eurostat publishes Italy's monthly industrial gas consumption directly." },
-        res_com: { source: "Eurostat monthly Other-Sectors", text: "Eurostat publishes Italy's monthly gas consumption for households + commercial services + agriculture directly." },
+        res_com: { source: "Eurostat monthly Other-Sectors", text: "Eurostat publishes Italy's monthly ResCom gas consumption (residential + commercial services + agriculture) directly." },
         ih: { source: "Computed leftover", text: "Whatever remains of the Eurostat total after subtracting Power + Industry + Homes & Businesses. For Italy this captures refineries, transport, and non-energy gas use." }
       },
       example: { month: "February 2024", state: "after_eurostat", total: 67.44, power: 19.95, industry: 10.31, res_com: 37.18 }
@@ -111,14 +111,14 @@ const COUNTRIES = {
         total: { source: "ENTSOG direct-consumer flows (daily)", text: "We sum daily flows at ENTSOG points classified as direct industrial consumers, industrial-power consumers, and local distribution companies (LDCs). This gives a near-real-time daily total for the Netherlands." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Netherlands' annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier", text: "We sum daily flows at ENTSOG points tagged as 'industrial' for the Netherlands. Available from November 2019 onwards." },
-        res_com: { source: "ENTSOG point classifier", text: "We sum daily flows at ENTSOG points tagged as 'household' for the Netherlands." },
+        res_com: { source: "ENTSOG point classifier", text: "We sum daily flows at ENTSOG points tagged as ResCom for the Netherlands." },
         ih: { source: "Computed leftover", text: "Total − Power − Industry − Homes & Businesses. For the Netherlands this is typically a few percent — non-energy gas use plus statistical residual." }
       },
       after_eurostat: {
         total: { source: "Eurostat (the EU statistical agency) — anchored", text: "Eurostat publishes the Netherlands' official monthly gas consumption. We use this and scale the daily values to match." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Netherlands' annual power-station efficiency." },
         industry: { source: "Eurostat monthly Industry", text: "Eurostat publishes the Netherlands' monthly industrial gas consumption directly." },
-        res_com: { source: "Eurostat monthly Other-Sectors", text: "Eurostat publishes the Netherlands' monthly gas consumption for households + commercial services + agriculture directly." },
+        res_com: { source: "Eurostat monthly Other-Sectors", text: "Eurostat publishes the Netherlands' monthly ResCom gas consumption (residential + commercial services + agriculture) directly." },
         ih: { source: "Computed leftover", text: "Whatever remains after subtracting the three sectors from the Eurostat total." }
       },
       example: { month: "February 2024", state: "after_eurostat", total: 29.28, power: 6.59, industry: 7.21, res_com: 11.49, ih: 3.99 }
@@ -135,7 +135,7 @@ const COUNTRIES = {
         total: { source: "Trading Hub Europe (daily)", text: "THE publishes Germany's daily total gas consumption directly." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations, divided by Germany's annual power-station efficiency. The efficiency is calibrated against Eurostat's annual figure for total gas-to-electricity, which includes industrial CHP plants that ENTSO-E doesn't directly capture." },
         industry: { source: "THE large-customer data − Power, scaled by rolling k", text: "THE publishes daily 'large customer' gas (called RLM — registered load metering). This includes industry + gas-fired power + large commercial all together. We subtract the gas-for-power figure (from ENTSO-E) to remove the power slice. Then we multiply by a rolling k factor (the average of the last 2 confirmed years) to align with Eurostat's industrial scope." },
-        res_com: { source: "THE small-customer data (SLP, raw)", text: "THE publishes daily 'small customer' gas (called SLP — synthetic load profile). This is essentially households + small commercial, a clean proxy for our Homes & Businesses category." },
+        res_com: { source: "THE small-customer data (SLP, raw)", text: "THE publishes daily 'small customer' gas (called SLP — synthetic load profile). This is essentially residential + small commercial — a clean proxy for our ResCom category." },
         ih: { source: "Computed leftover", text: "THE total − Power − Industry − Homes & Businesses. Captures off-network gas, refineries, transport, and statistical residuals." }
       },
       after_eurostat: {
@@ -217,7 +217,7 @@ const COUNTRIES = {
         total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Belgium. We calculate Belgium's daily gas consumption by adding up everything flowing IN (imports + domestic production + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Belgium that day." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations divided by Belgium's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at ENTSOG points tagged as 'industrial' for Belgium. For months before November 2019, we use Eurostat's annual industrial figure spread across months." },
-        res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at ENTSOG points tagged as 'household' for Belgium." },
+        res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at ENTSOG points tagged as ResCom for Belgium." },
         ih: { source: "Computed leftover", text: "ENTSOG total − Power − Industry − Homes & Businesses. Absorbs any classification gaps." }
       },
       after_eurostat: {
@@ -239,7 +239,7 @@ const COUNTRIES = {
         total: { source: "Computed estimate = Power + Industry + Homes & Businesses (sum of known sectors)", text: "Hungary has no near-real-time daily total source — the ENTSOG balance method is unreliable due to large transit flows that distort the calculation. While we wait for Eurostat to publish (about 2 months after month-end), we sum the three known sector values to produce a preliminary monthly Total. Once Eurostat publishes, the official figure replaces this estimate." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity from gas-fired power stations divided by Hungary's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at points tagged as 'industrial' for Hungary." },
-        res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at points tagged as 'household' for Hungary." },
+        res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of daily flows at points tagged as ResCom for Hungary." },
         ih: { source: "Not emitted (zero)", text: "Always zero — the estimated Total already equals Power + Industry + Homes & Businesses by construction." }
       },
       after_eurostat: {
@@ -261,7 +261,7 @@ const COUNTRIES = {
         total: { source: "Computed estimate = Power + Industry + Homes & Businesses (sum of known sectors)", text: "Luxembourg has no near-real-time daily total source — the ENTSOG balance method is unreliable due to transit flows. While we wait for Eurostat to publish (about 2 months after month-end), we sum the three known sector values to produce a preliminary monthly Total. Once Eurostat publishes, the official figure replaces this estimate." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity divided by Luxembourg's annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier", text: "Sum of points tagged 'industrial' for Luxembourg." },
-        res_com: { source: "ENTSOG point classifier", text: "Sum of points tagged 'household' for Luxembourg." },
+        res_com: { source: "ENTSOG point classifier", text: "Sum of points tagged ResCom for Luxembourg." },
         ih: { source: "Not emitted (zero)", text: "Always zero — the estimated Total already equals Power + Industry + Homes & Businesses by construction." }
       },
       after_eurostat: {
@@ -283,7 +283,7 @@ const COUNTRIES = {
         total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Portugal. We calculate Portugal's daily gas consumption by adding up everything flowing IN (imports + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Portugal that day." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged 'industrial' for Portugal." },
-        res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged 'household' for Portugal." },
+        res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged ResCom for Portugal." },
         ih: { source: "Computed leftover", text: "Total − Power − Industry − Homes & Businesses." }
       },
       after_eurostat: {
@@ -305,7 +305,7 @@ const COUNTRIES = {
         total: { source: "ENTSOG (European gas network operators) — balance method", text: "ENTSOG publishes daily gas-network flow data for Romania. We calculate Romania's daily gas consumption by adding up everything flowing IN (imports + domestic production + storage withdrawals) and subtracting everything flowing OUT (exports + storage injections). The result is the gas consumed inside Romania that day." },
         power: { source: "ENTSO-E (European electricity network) — daily generation ÷ annual efficiency", text: "Daily electricity ÷ annual power-station efficiency." },
         industry: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged 'industrial' for Romania." },
-        res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged 'household' for Romania." },
+        res_com: { source: "ENTSOG point classifier (from Nov 2019)", text: "Sum of points tagged ResCom for Romania." },
         ih: { source: "Computed leftover", text: "Total − Power − Industry − Homes & Businesses." }
       },
       after_eurostat: {
@@ -663,7 +663,7 @@ const COUNTRIES = {
         total: { source: "Not available", text: "No daily total source for Malta." },
         power: { source: "Not separated", text: "Almost all of Malta's gas goes to a single power plant. We don't separately report it." },
         industry: { source: "Negligible", text: "Malta has minimal industrial gas demand." },
-        res_com: { source: "Negligible", text: "Malta has no household gas grid." },
+        res_com: { source: "Negligible", text: "Malta has no ResCom gas grid." },
         ih: { source: "Not available", text: "Without a Total, nothing to report." }
       },
       after_eurostat: {
@@ -678,18 +678,18 @@ const COUNTRIES = {
   },
 
   // ─── GROUP 9: UK ──────────────────────────────────────────────────────
-  // UK uses DESNZ (UK government) instead of Eurostat — same role, same lag.
+  // UK uses DESNZ (UK government) as its monthly anchor.
 
   "UK": {
     name: "United Kingdom",
-    group: "The UK uses DESNZ (Department for Energy Security and Net Zero) Energy Trends Table 4.2 as its monthly source — Eurostat dropped the UK after Brexit. DESNZ has the same ~2-month lag as Eurostat.",
+    group: "The UK's monthly gas balance is published by the Department for Energy Security and Net Zero (DESNZ) in Energy Trends Table 4.2, about 2 months after each month ends. DESNZ is the official UK government source for energy statistics.",
     historical: {
       before_eurostat: {
-        total: { source: "National Gas (daily) × monthly uplift factor", text: "National Gas publishes daily flow on the UK national transmission system. We multiply by a monthly uplift factor (~1.13) to add back off-network gas (refineries, LNG terminal own-use, gas storage own-use, transport, non-energy use). The uplift factor is calculated rolling per month against the latest DESNZ data." },
-        power: { source: "National Gas Powerstations × power uplift factor", text: "National Gas publishes daily gas to large power stations on the transmission network. We multiply by a power-specific uplift factor (~1.27) to add back smaller power stations connected to the local distribution networks (which the National Gas data alone misses)." },
-        industry: { source: "DESNZ annual, distributed monthly (or DESNZ monthly for 2023+)", text: "From January 2023 onwards, DESNZ publishes monthly UK industrial gas consumption directly. For pre-2023 months, we use DESNZ's annual industrial figure spread across months." },
-        res_com: { source: "DESNZ annual, distributed monthly (or DESNZ monthly for 2023+)", text: "From January 2023 onwards, DESNZ publishes monthly UK domestic + services gas directly. Pre-2023 uses the annual figure spread monthly." },
-        ih: { source: "Computed leftover", text: "Daily uplifted total minus Power minus Industry minus Homes & Businesses. Captures any remaining off-network gas (~7-12% of UK demand)." }
+        total: { source: "National Gas (daily) × uplift — or a computed estimate when that feed is unavailable", text: "Normally National Gas publishes daily flow on the UK national transmission system, which we multiply by a monthly uplift factor (~1.13) to add back off-network gas (refineries, LNG terminal own-use, storage own-use, transport, non-energy use). If the National Gas daily feed is unavailable and DESNZ has not yet published the month (DESNZ lags ~2 months), we keep the month populated with an estimate instead of leaving it blank: Total = Power + Industry + Homes & Businesses, each estimated as described below." },
+        power: { source: "National Gas Powerstations × uplift — or a recency-weighted 3-year estimate", text: "Normally daily gas to large power stations × a power-specific uplift factor (~1.27), which adds back smaller stations on the local distribution networks. When that feed is unavailable, Power is estimated as a recency-weighted blend of the same calendar month in the three most recent years (weights 0.5 / 0.3 / 0.2, newest year first). The weighting tracks the downward trend in UK gas-for-power better than a flat average would." },
+        industry: { source: "DESNZ annual, distributed monthly (or DESNZ monthly for 2023+)", text: "From January 2023 onwards, DESNZ publishes monthly UK industrial gas consumption directly. Until DESNZ publishes a recent month, UK industry is carried forward from DESNZ's latest annual industrial figure, spread across months." },
+        res_com: { source: "DESNZ monthly (2023+) — or a 3-year same-month average until DESNZ publishes", text: "From January 2023 onwards, DESNZ publishes monthly UK domestic + services gas directly. Until DESNZ publishes a recent month, Homes & Businesses is estimated as the average of the same calendar month in the three most recent years." },
+        ih: { source: "Computed leftover (zero on estimated months)", text: "When built from the National Gas daily total, this is the daily uplifted total minus Power, Industry and Homes & Businesses — the remaining off-network gas (~7-12% of UK demand). On months built from the estimate above, Total is defined as Power + Industry + Homes & Businesses, so there is no leftover; the off-network gas is folded back in once DESNZ publishes and the month is anchored." }
       },
       after_eurostat: {
         total: { source: "DESNZ ET 4.2 (anchored)", text: "Once DESNZ publishes UK monthly Energy Trends Table 4.2, we scale daily values so the monthly sum matches DESNZ exactly." },
@@ -761,7 +761,42 @@ Caveat — early in the month: if the current-month data only goes through day 1
 
 If a country has no current-month daily data at all, we also carry forward the prior-year same-month total.
 
-INDUSTRY, HOMES & BUSINESSES, TOTAL
+INDUSTRY — three-branch methodology
 
-Methodology for the other sectors in the current month is still being refined and will be documented here as it lands.
+Industry has a quirk: only 5 countries provide daily industrial gas data — DE (RLM aggregate minus ENTSO-E power), FR (GRTGaz), and BE / IT / NL (ENTSOG point classifier). The other 22 countries only get monthly industrial figures (Eurostat, DESNZ, etc.). So the current-month estimate uses three different branches depending on the situation:
+
+Branch A — Pre-5th carryover (applies to every country):
+Before five days of the current month have passed, we don't yet have a stable signal. The estimate is simply the prior-year same-month industrial total for that country.
+
+Branch B — Daily-data country, from day 5 onward (DE, FR, BE, IT, NL):
+Pure run-rate projection of the country's own data.
+  1. Compute the country's daily average industrial gas over the days of the current month so far.
+  2. Multiply by the number of days in the current month.
+
+Worked example (Germany, April 2026 estimate computed on 15 April 2026, mid-month):
+  • MTD 1-15 April 2026 = 11.46 TWh
+  • Daily average = 11.46 ÷ 15 = 0.764 TWh/day
+  • Days in April = 30
+  • Estimate = 0.764 × 30 = 22.93 TWh
+
+Branch C — Non-daily country, from day 5 onward (all others — ES, UK, HU, LU, PT, RO, AT, etc.):
+We don't have this country's daily industrial, so we borrow the growth signal from the 5 daily-data countries collectively.
+  1. Find the common floor — the latest date through which ALL 5 daily-data countries have data. (Some lag a day or two behind others; we use the earliest of their latest-available dates to keep the comparison apples-to-apples.)
+  2. For each daily-data country, sum days 1 through the common floor for both the current year and the prior year.
+  3. Compute an aggregate growth ratio: total of peer current ÷ total of peer prior. Aggregating (rather than averaging country-by-country growth rates) naturally weights large industrial markets like DE/IT more than smaller ones — it's a weighted average with prior-period volumes as the weights.
+  4. Multiply the country's own prior-year same-month industrial total by that aggregate growth ratio.
+
+Worked example (Spain, April 2026 estimate computed on 15 April 2026):
+  • Common floor across DE/BE/IT/NL (the 4 that had April data through 15 April) = day 15
+  • Sum of peer industrial, days 1-15 April 2026 = 21.84 TWh
+  • Sum of peer industrial, days 1-15 April 2025 = 25.77 TWh
+  • Aggregate growth = 21.84 ÷ 25.77 = 0.8475 (-15.25%)
+  • Spain's prior year full month (April 2025) industrial = 8.44 TWh
+  • Estimate = 8.44 × 0.8475 = 7.16 TWh
+
+Anchor fallbacks (rare): if a country's prior-year same-month industrial is zero or missing (extremely rare — one such case in the last 5 years), we fall back to the country's last-12-month average industrial. If that also fails, we use a 3-year same-month average.
+
+HOMES & BUSINESSES, TOTAL
+
+Methodology for these sectors in the current month is still being refined and will be documented here as it lands.
 `.trim();

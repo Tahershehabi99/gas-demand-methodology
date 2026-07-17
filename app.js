@@ -96,14 +96,43 @@
 
   function renderSubstateIntro(code) {
     const c = COUNTRIES[code];
-    const anchor = code === "UK" ? "DESNZ (UK government statistics)" : "Eurostat";
+    const isUK = code === "UK";
+    const anchor = isUK ? "DESNZ (UK government statistics)" : "Eurostat";
+    const anchorShort = isUK ? "DESNZ" : "Eurostat";
+    const anchorPhrase = isUK
+      ? "the Department for Energy Security and Net Zero (DESNZ)"
+      : "Eurostat";
+
+    // Step 3 heading
+    const heading = document.getElementById("step-substate-heading");
+    if (heading) {
+      heading.textContent = isUK
+        ? "Step 3 — Before or after DESNZ reports?"
+        : "Step 3 — Before or after Eurostat reports?";
+    }
+
+    // Button labels + descriptions
+    document.querySelectorAll(".substate-btn-title").forEach(el => {
+      const sub = el.dataset.substateTitle;
+      el.textContent = sub === "before"
+        ? `Before ${anchorShort} reports`
+        : `After ${anchorShort} reports`;
+    });
+    document.querySelectorAll(".substate-btn-desc").forEach(el => {
+      const sub = el.dataset.substateDesc;
+      el.textContent = sub === "before"
+        ? `Preliminary numbers — the official ${anchorShort} figure is not yet available for this month`
+        : `Final, confirmed numbers — the ${anchorShort} figure has been published and used to lock the totals`;
+    });
+
     stepSubstateIntro.innerHTML = `
       We use <strong>${anchor}</strong> as the official monthly Total for
-      ${escape(c.name)}, but ${anchor} publishes about 2 months after each
-      month ends. So for any given month there are two states: <em>before
-      ${anchor} reports</em> (preliminary numbers) and <em>after ${anchor}
-      reports</em> (final, confirmed numbers). The two states use slightly
-      different methodologies — pick which one you want to see.
+      ${escape(c.name)}, but ${anchorPhrase} publishes about 2 months after
+      each month ends. So for any given month there are two states:
+      <em>before ${anchorShort} reports</em> (preliminary numbers) and
+      <em>after ${anchorShort} reports</em> (final, confirmed numbers). The
+      two states use slightly different methodologies — pick which one you
+      want to see.
     `;
   }
 
